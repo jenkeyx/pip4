@@ -2,7 +2,7 @@ package Classes.Beans;
 
 import javax.persistence.*;
 import java.util.Objects;
-@Entityъ
+@Entity
 public class Dot {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

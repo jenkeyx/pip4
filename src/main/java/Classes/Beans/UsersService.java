@@ -1,9 +1,11 @@
 package Classes.Beans;
 
-import Spring.Security.PasswordEncryption;
-import Spring.Data.UserRepo;
+import Classes.Spring.Security.PasswordEncryption;
+import Classes.Spring.Data.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsersService {
     UserRepo userRepo;
     PasswordEncryption passwordEncryption;
@@ -20,8 +22,8 @@ public class UsersService {
     }
 
     public boolean isCredentialsValid(String username,String password){
-        if (isUserExists(username)){
-            User user = loadUser(username);
+        User user = loadUser(username);
+        if (user != null){
             return passwordEncryption.decode(user.getPassword()).equals(password);
         }else {
             return false;
@@ -29,15 +31,7 @@ public class UsersService {
     }
 
     public User loadUser(String username){
-        if (isUserExists(username)){
             return userRepo.findUserByUsername(username);
-        }else {
-            return null;
-        }
-    }
-
-    public boolean isUserExists(String username){
-        return userRepo.findUserByUsername(username)!=null;
     }
 
     public void saveUser(User user){

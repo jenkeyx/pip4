@@ -1,6 +1,6 @@
 package Classes.Beans;
 
-import Spring.Data.DotRepo;
+import Classes.Spring.Data.DotRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

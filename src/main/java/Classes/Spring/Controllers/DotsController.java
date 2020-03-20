@@ -1,9 +1,9 @@
-package Classes.Controllers;
+package Classes.Spring.Controllers;
 
 import Classes.Beans.Dot;
 import Classes.Beans.DotsService;
 import Classes.Beans.UsersService;
-import Spring.Security.HeaderEncryption;
+import Classes.Spring.Security.HeaderEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package Classes.Controllers.Exceptions;
+package Classes.Spring.Controllers.Exceptions;
 
 public class WrongCredentialsException extends Exception {
 }

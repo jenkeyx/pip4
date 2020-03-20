@@ -1,4 +1,4 @@
-package Spring.Data;
+package Classes.Spring.Data;
 
 
 import Classes.Beans.Dot;

@@ -1,15 +1,17 @@
-package Classes.Controllers;
+package Classes.Spring.Controllers;
 
 import Classes.Beans.User;
 import Classes.Beans.UsersService;
-import Classes.Controllers.Exceptions.UserAlreadyExsistsException;
+import Classes.Spring.Controllers.Exceptions.UserAlreadyExsistsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
-@RequestMapping(value = "reg")
+@RestController
+@RequestMapping(value = "/registration")
 public class RegController {
     private UsersService usersService;
 
@@ -18,8 +20,9 @@ public class RegController {
         this.usersService = usersService;
     }
 
-    private void registration(@RequestBody User user) throws UserAlreadyExsistsException {
-        if (usersService.isUserExists(user.getUsername())){
+    @PostMapping
+    public void registration(@RequestBody User user) throws UserAlreadyExsistsException {
+        if (usersService.loadUser(user.getUsername()) != null){
             throw new UserAlreadyExsistsException();
         }else {
             usersService.saveUser(user);
