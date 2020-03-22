@@ -5,14 +5,12 @@ import Classes.Beans.DotsService;
 import Classes.Beans.UsersService;
 import Classes.Spring.Security.HeaderEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@RestController
+@RequestMapping(value = "dots")
 public class DotsController {
     DotsService dotsService;
     UsersService usersService;
@@ -25,7 +23,7 @@ public class DotsController {
         this.headerEncryption = headerEncryption;
     }
     @GetMapping
-    List<Dot> getDotes(@RequestHeader(value = "auth") String credentials, @RequestBody Dot dot){
+    List<Dot> getDotes(@RequestHeader(value = "Authorization") String credentials, @RequestBody Dot dot){
         if (usersService.isCredentialsValid(headerEncryption.decodeLoginFromHeaderBasic64(credentials), headerEncryption.decodePasswordFromHeaderBasic64(credentials))) {
             return dotsService.getDotsByUsername(headerEncryption.decodeLoginFromHeaderBasic64(credentials));
         }else {
@@ -33,7 +31,7 @@ public class DotsController {
         }
     }
     @PostMapping
-    Dot saveDot(@RequestHeader(value = "auth") String credentials ,@RequestBody Dot dot){
+    Dot saveDot(@RequestHeader(value = "Authorization") String credentials ,@RequestBody Dot dot){
         if (usersService.isCredentialsValid(headerEncryption.decodeLoginFromHeaderBasic64(credentials),headerEncryption.decodePasswordFromHeaderBasic64(credentials))) {
             dot.setOwner(headerEncryption.decodeLoginFromHeaderBasic64(credentials));
             dotsService.saveDot(dot);

@@ -25,7 +25,6 @@ public class AuthController {
         String username = headerEncryption.decodeLoginFromHeaderBasic64(header);
         String password = headerEncryption.decodePasswordFromHeaderBasic64(header);
         if (!usersService.isCredentialsValid(username,password)){
-            System.out.println(header);
             throw new WrongCredentialsException();
         }
     }
