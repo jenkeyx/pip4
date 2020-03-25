@@ -59,4 +59,3 @@ public class User {
 
     public User(){}
 }
-//todo замутить БД

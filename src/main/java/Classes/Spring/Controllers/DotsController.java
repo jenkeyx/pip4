@@ -37,6 +37,7 @@ public class DotsController {
             dotsService.saveDot(dot);
             return dot;
         }else {
+            System.out.println("achtung!");
             return new Dot();
         }
 
