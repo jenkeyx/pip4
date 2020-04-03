@@ -23,7 +23,7 @@ public class DotsController {
         this.headerEncryption = headerEncryption;
     }
     @GetMapping
-    List<Dot> getDotes(@RequestHeader(value = "Authorization") String credentials, @RequestBody Dot dot){
+    List<Dot> getDotes(@RequestHeader(value = "Authorization") String credentials){
         if (usersService.isCredentialsValid(headerEncryption.decodeLoginFromHeaderBasic64(credentials), headerEncryption.decodePasswordFromHeaderBasic64(credentials))) {
             return dotsService.getDotsByUsername(headerEncryption.decodeLoginFromHeaderBasic64(credentials));
         }else {
