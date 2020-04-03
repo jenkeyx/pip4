@@ -13,7 +13,6 @@ public class AuthController {
     UsersService usersService;
     HeaderEncryption headerEncryption;
     PasswordEncryption passwordEncryption;
-
     @Autowired
     public AuthController(UsersService usersService, HeaderEncryption headerEncryption, PasswordEncryption passwordEncryption) {
         this.usersService = usersService;
