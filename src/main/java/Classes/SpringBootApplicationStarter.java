@@ -10,4 +10,5 @@ public class SpringBootApplicationStarter {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootApplicationStarter.class,args);
     }
+
 }
