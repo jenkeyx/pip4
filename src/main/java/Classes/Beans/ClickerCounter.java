@@ -9,11 +9,31 @@ public class ClickerCounter implements ClickerCounterMBean{
     }
 
     @Override
-    public void count(Dot dot) {
+    public void count(boolean isHit) {
         if (clickCount%10 == 0)
             System.out.println("Число кликов кратно 10");
-        if (dot.isHit)
+        if (isHit)
             hitCount++;
         clickCount++;
+    }
+
+    @Override
+    public int getHitCount() {
+        return hitCount;
+    }
+
+    @Override
+    public int getClickCount() {
+        return clickCount;
+    }
+
+    @Override
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    @Override
+    public void setClickCount(int clickCount) {
+        this.clickCount = clickCount;
     }
 }

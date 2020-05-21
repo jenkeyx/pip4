@@ -1,9 +1,6 @@
 package Classes.Spring.Controllers;
 
-import Classes.Beans.ClickerCounter;
-import Classes.Beans.Dot;
-import Classes.Beans.DotsService;
-import Classes.Beans.UsersService;
+import Classes.Beans.*;
 import Classes.Spring.Security.HeaderEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +17,14 @@ public class DotsController {
     UsersService usersService;
     HeaderEncryption headerEncryption;
     ClickerCounter clickerCounter = new ClickerCounter();
+    RatioCounter ratioCounter = new RatioCounter();
     MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-    ObjectName name;
+    ObjectName clickerName,ratioName;
 
     {
         try {
-            name = new ObjectName("Classes.Beans:type=ClickerCounter");
+            clickerName = new ObjectName("Classes.Beans:type=ClickerCounter");
+            ratioName = new ObjectName("Classes.Beans:type=RatioCounter");
         } catch (MalformedObjectNameException e) {
             e.printStackTrace();
         }
@@ -37,7 +36,8 @@ public class DotsController {
         this.usersService = usersService;
         this.headerEncryption = headerEncryption;
         try {
-            server.registerMBean(clickerCounter,name);
+            server.registerMBean(clickerCounter, clickerName);
+            server.registerMBean(ratioCounter,ratioName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +54,8 @@ public class DotsController {
 
     @PostMapping
     Dot saveDot(@RequestHeader(value = "Authorization") String credentials, @RequestBody Dot dot) {
-        clickerCounter.count(dot);
+        clickerCounter.count(dot.isHit());
+        ratioCounter.calcRatio(clickerCounter.getHitCount(),clickerCounter.getClickCount());
         if (usersService.isCredentialsValid(headerEncryption.decodeLoginFromHeaderBasic64(credentials), headerEncryption.decodePasswordFromHeaderBasic64(credentials))) {
             dot.setOwner(headerEncryption.decodeLoginFromHeaderBasic64(credentials));
             dotsService.saveDot(dot);
