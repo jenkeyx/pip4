@@ -25,14 +25,4 @@ public class ClickerCounter extends NotificationBroadcasterSupport implements Cl
     public int getClickCount() {
         return clickCount;
     }
-
-    @Override
-    public void setHitCount(int hitCount) {
-        this.hitCount = hitCount;
-    }
-
-    @Override
-    public void setClickCount(int clickCount) {
-        this.clickCount = clickCount;
-    }
 }
