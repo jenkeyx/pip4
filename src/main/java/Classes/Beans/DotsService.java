@@ -28,7 +28,9 @@ public class DotsService {
         double x = dot.x;
         double y = dot.y;
         double r = dot.r;
-        return (x >= 0 && y >= 0 && x <= r && y <= r / 2) || (x <= 0 && y >= 0 && r * r >= x * x + y * y) || (x <= 0 && y <= 0 && y >= -x - r / 2);
+        return (x >= 0 && y >= 0 && r * r >= x * x + y * y) ||
+                (x <= 0 && y >= 0 && x >= -r / 2 && y <= r) ||
+                (x <= 0 && y <= 0 && y >= -x - r / 2);
     }
 
 }
