@@ -10,5 +10,3 @@ import java.util.List;
 public interface DotRepo extends JpaRepository<Dot,Integer> {
     List<Dot> findAllByOwner(String owner);
 }
-
-//finished

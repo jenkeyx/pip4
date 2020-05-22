@@ -12,7 +12,6 @@ public class PasswordEncryption {
     }
 
     public String decode(String str){
-        System.out.println(str);
         return new String(Base64.getDecoder().decode(str.getBytes()));
     }
 }

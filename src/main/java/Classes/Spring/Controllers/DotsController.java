@@ -54,11 +54,11 @@ public class DotsController {
 
     @PostMapping
     Dot saveDot(@RequestHeader(value = "Authorization") String credentials, @RequestBody Dot dot) {
-        clickerCounter.count(dot.isHit());
-        ratioCounter.calcRatio(clickerCounter.getHitCount(),clickerCounter.getClickCount());
         if (usersService.isCredentialsValid(headerEncryption.decodeLoginFromHeaderBasic64(credentials), headerEncryption.decodePasswordFromHeaderBasic64(credentials))) {
             dot.setOwner(headerEncryption.decodeLoginFromHeaderBasic64(credentials));
             dotsService.saveDot(dot);
+            clickerCounter.count(dot.isHit());
+            ratioCounter.calcRatio(clickerCounter.getHitCount(),clickerCounter.getClickCount());
             return dot;
         } else {
             System.out.println("achtung!");
